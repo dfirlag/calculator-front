@@ -1,0 +1,47 @@
+<div class="my-box">
+  <h2 class="text-central">Dawid Firląg Calculator</h2>
+  <form #calculatorForm="ngForm" (ngSubmit)="calculateExpression(input.value)">
+    <div class="form-group">
+      <label for="calculate-expression-input">Calculate expression</label>
+      <input type="input" class="form-control" #input id="calculate-expression-input" placeholder="1+2*(9+1)">
+      <small class="error text-danger" *ngIf="invalidExpression$">
+        Invalid expression
+      </small>
+      <small class="error text-danger" *ngIf="emptyExpression$">
+        Expression can't be empty
+      </small>
+      <small id="emailHelp" class="form-text text-muted">Available operators: +-*/().</small>
+    </div>
+    <button type="button" (click)="calculateExpression(input.value)" class="btn btn-primary ">Calculate</button>
+  </form>
+  <hr>
+  <div class="row">
+    <div class="col-md-12" *ngIf="result$ != '-'">
+      Result : <span>{{ expression$ }}</span> <span> = {{ result$ }}</span>
+      <button class="btn btn-primary float-right">Save</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <h5>Saved results:</h5>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Expression</th>
+          <th scope="col">Result</th>
+          <th scope="col">Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Mark</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
