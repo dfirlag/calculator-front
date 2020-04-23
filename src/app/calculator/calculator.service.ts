@@ -13,7 +13,7 @@ export class CalculatorService {
   constructor(private httpClient: HttpClient) {
   }
 
-  deleteExpression(id: int) {
+  deleteExpression(id: number) {
     return this
       .httpClient
       .delete("http://localhost:8080/expression/delete-expression/" + id)

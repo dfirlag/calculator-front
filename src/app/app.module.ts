@@ -10,8 +10,6 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { AppComponent } from './app.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 
-import { CalculatorInMemoryDataService } from './calculator/calculator-in-memory-data.service';
-
 @NgModule({
   declarations: [
     AppComponent,

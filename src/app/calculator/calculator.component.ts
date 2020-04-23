@@ -3,7 +3,6 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { FormsModule }   from '@angular/forms';
 
 import { CalculatorService } from "./calculator.service";
-import { ExpressionListElementDto } from './ExpressionListElementDto';
 
 @Component({
   selector: 'app-calculator',
@@ -28,7 +27,7 @@ export class CalculatorComponent implements OnInit {
     this.loadExpressions();
   }
 
-  public deleteExpression(id: int): void {
+  public deleteExpression(id: number): void {
     this.ngxService.start();
 
     this.calculatorQueryService
