@@ -13,6 +13,15 @@ export class CalculatorService {
   constructor(private httpClient: HttpClient) {
   }
 
+  deleteExpression(id: int) {
+    return this
+      .httpClient
+      .delete("http://localhost:8080/expression/delete-expression/" + id)
+      .pipe(
+        catchError(this.handleError<any>('calculateExpression'))
+      );
+  }
+
   calculateExpression(expression: string) {
     expression = encodeURIComponent(expression);
 
@@ -23,21 +32,43 @@ export class CalculatorService {
       .httpClient
       .get("http://localhost:8080/calculator/get-calculated-expression", { params: params, responseType: "json"})
       .pipe(
-        catchError(this.handleError<any>('calculateExpression', []))
+        catchError(this.handleError<any>('calculateExpression'))
       );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+  saveExpression(expression: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+
+    let json = JSON.stringify({expression: expression});
+    return this
+      .httpClient
+      .put("http://localhost:8080/expression/save-expression", json, {headers: headers})
+      .pipe(
+        catchError(this.handleError<any>('calculateExpression'))
+      );
+  }
+
+  loadExpressions() {
+    return this
+      .httpClient
+      .get("http://localhost:8080/expression/get-saved-expressions")
+      .pipe(
+        catchError(this.handleError<any>('calculateExpression'))
+      );
+  }
+
+  private handleError<T>(operation = 'operation', result?: any) {
+    return (error: any): Observable<any> => {
 
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
-//       this.log(`${operation} failed: ${error.message}`);
+      if (error.error.hasOwnProperty("message")) {
+        result = {errorMessage: error.error.message};
+      }
 
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
+      return of(result as any);
     };
   }
 }
