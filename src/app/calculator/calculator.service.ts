@@ -43,7 +43,7 @@ export class CalculatorService {
     let json = JSON.stringify({expression: expression});
     return this
       .httpClient
-      .put("http://localhost:8080/expression/save-expression", json, {headers: headers})
+      .post("http://localhost:8080/expression/save-expression", json, {headers: headers})
       .pipe(
         catchError(this.handleError<any>('calculateExpression'))
       );
